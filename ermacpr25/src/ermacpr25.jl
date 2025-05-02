@@ -50,8 +50,8 @@ poligono_rotacionado(x_ref, y_ref, θ, lista_poligono) = Shape(
     y_ref .+ sin(θ) * lista_poligono[:, 1] .+ cos(θ) * lista_poligono[:, 2])
 
 
-quadrado(v, l) = poligono_rotacionado(v[1], v[2], 0.0, vcat([0 0], [l 0], [l l], [0 l]))
-quadrado(v, l, θ) = poligono_rotacionado(v[1], v[2], θ, vcat([0 0], [l 0], [l l], [0 l]))
+quadrado(v, l) = poligono_rotacionado(v[1], v[2], 0.0, vcat([-l/2 -l/2], [l/2 -l/2], [l/2 l/2], [-l/2 l/2]))
+quadrado(v, l, θ) = poligono_rotacionado(v[1], v[2], θ, vcat([-l/2 -l/2], [l/2 -l/2], [l/2 l/2], [-l/2 l/2]))
 
 """
 
