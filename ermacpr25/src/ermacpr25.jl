@@ -53,6 +53,23 @@ poligono_rotacionado(x_ref, y_ref, θ, lista_poligono) = Shape(
 quadrado(v, l) = poligono_rotacionado(v[1], v[2], 0.0, vcat([-l/2 -l/2], [l/2 -l/2], [l/2 l/2], [-l/2 l/2]))
 quadrado(v, l, θ) = poligono_rotacionado(v[1], v[2], θ, vcat([-l/2 -l/2], [l/2 -l/2], [l/2 l/2], [-l/2 l/2]))
 
+_triangulo_base = let 
+
+    # baricentro do triangulo com vértice em (0, 0)
+    bc = [1/2 sqrt(3) / 6]
+
+    [
+        0.0  0.0;
+        1.0  0.0;
+        1/2 (1 * sqrt(3) / 2)
+    ] .- bc
+    
+end
+
+triangulo_eq(d, θ, l) = triangulo(d, θ, l * _triangulo_base)
+
+triangulo(d, θ, triangulo_base) = poligono_rotacionado(d[1], d[2], θ, triangulo_base)
+
 """
 
     circulo(x_ref, y_ref, raio)
