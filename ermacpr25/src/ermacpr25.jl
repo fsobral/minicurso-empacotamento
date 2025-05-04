@@ -21,7 +21,7 @@ Cria a forma de um polígono referenciado a partir do ponto (x_ref, y_ref).
 
     - 'x_ref': abscissa do ponto de referência.
     - 'y_ref': ordenada do ponto de referência.
-    - 'lista_poligono': lista de vértices do polígono.
+    - 'lista_poligono': matrix Px2, cuja primeira coluna representa a coordenada `x` e a segunda coluna a coordenada `y` de cada ponto do polígono
 
 Retorna um objeto do tipo Shape.
 
@@ -29,6 +29,7 @@ Retorna um objeto do tipo Shape.
 poligono(x_ref, y_ref, lista_poligono) = Shape(x_ref .+ lista_poligono[:, 1], 
     y_ref .+ lista_poligono[:, 2])
 
+poligono(lista_poligono) = poligono(0.0, 0.0, lista_poligono)
 
 """
 
@@ -237,5 +238,39 @@ function plota_solucao(lista_raios_circ, lista_vertice_pol, L, W, x)
     end
 
     fig
+
+end
+
+desenha_solucao_cq(raios, xC, yC, W) = desenha_solucao_cq(raios, xC, yC, W, W)
+
+function desenha_solucao_cq(raios, xC, yC, W, L)
+
+    @assert length(raios) == length(xC) == length(yC)
+
+    fig = plot(caixa(L, W), c=:dodgerblue, lc=:black, lw=3, label=false, aspect_ratio=true)
+
+    for (c, r) in zip(zip(xC, yC), raios)
+
+        plot!(fig, circulo(c, r), c=false, lc=:firebrick, lw=3, label=false, aspect_ratio=true)
+
+    end
+
+    return fig
+
+end
+
+function desenha_solucao_qc(ℓ, xQ, yQ, θ, R)
+
+    @assert length(xQ) == length(yQ) == length(θ)
+
+    fig = plot(circulo([0, 0], R), c=:dodgerblue, lc=:black, lw=3, label=false, aspect_ratio=true)
+
+    for (v, a) in zip(zip(xQ, yQ), θ)
+
+        plot!(fig, quadrado(v, ℓ, a), c=false, lc=:firebrick, lw=3, label=false, aspect_ratio=true)
+
+    end
+
+    return fig
 
 end
