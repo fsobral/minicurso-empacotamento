@@ -31,6 +31,12 @@ poligono(x_ref, y_ref, lista_poligono) = Shape(x_ref .+ lista_poligono[:, 1],
 
 poligono(lista_poligono) = poligono(0.0, 0.0, lista_poligono)
 
+function uniao_poligonos(P)
+
+    return [poligono(P[i]) for i = 1:length(P)]
+
+end
+
 """
 
     poligono_rotacionado(x_ref, y_ref, θ, lista_poligono)
